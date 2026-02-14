@@ -1,378 +1,156 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>DownDetector Detector</title>
-  <meta name="description" content="Checks if Downdetector's Downdetector's Downdetector's Downdetector is down."/>
-  <style>
-    :root{
-      --bg:#070b12;
-      --card:#0d1422;
-      --line:#1e2a3d;
-      --text:#e5e7eb;
-      --muted:#93a4b8;
-      --up:#22c55e;
-      --down:#ef4444;
-      --unk:#f59e0b;
-      --accent:#60a5fa;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(900px 600px at 20% 0%, rgba(96,165,250,.14), transparent 55%),
-        radial-gradient(900px 600px at 80% 10%, rgba(239,68,68,.12), transparent 55%),
-        var(--bg);
-    }
-    .wrap{max-width:980px;margin:0 auto;padding:28px 16px 60px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-    .brand{display:flex;align-items:center;gap:12px;min-width:0}
-    .logo{
-      width:44px;height:44px;border-radius:14px;
-      background:linear-gradient(135deg, rgba(96,165,250,.9), rgba(34,197,94,.85));
-      display:grid;place-items:center;
-      color:#06101e;font-weight:900;
-      box-shadow:0 12px 40px rgba(96,165,250,.12);
-      flex:0 0 auto;
-    }
-    .brand h1{
-      margin:0;
-      font-size:14px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      color:var(--muted);
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      max-width:72vw;
-    }
-    .card{
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border-radius:18px;
-      padding:16px;
-      box-shadow:0 20px 80px rgba(0,0,0,.40);
-    }
-    .top{
-      display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:14px;
-      margin-bottom:12px;
-    }
-    .title h2{margin:0;font-size:24px;letter-spacing:-.02em}
-    .title p{margin:6px 0 0;color:var(--muted);max-width:75ch;line-height:1.45}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
-    .btn{
-      border:1px solid var(--line);
-      background:rgba(96,165,250,.14);
-      color:var(--text);
-      padding:10px 12px;border-radius:12px;
-      cursor:pointer;
-      transition:.15s transform ease, .15s background ease;
-      font-weight:700;font-size:14px;
-    }
-    .btn:hover{transform:translateY(-1px);background:rgba(96,165,250,.20)}
-    .btn.secondary{background:rgba(255,255,255,.03);font-weight:600}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-    @media (max-width: 820px){.grid{grid-template-columns:1fr}}
-    .panel{
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.22);
-      border-radius:16px;
-      padding:14px;
-    }
-    .bigStatus{
-      display:flex;align-items:center;gap:12px;
-      padding:14px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.06);
-      background:rgba(0,0,0,.20);
-    }
-    .dot{width:14px;height:14px;border-radius:999px}
-    .dot.up{background:var(--up);box-shadow:0 0 0 6px rgba(34,197,94,.10)}
-    .dot.down{background:var(--down);box-shadow:0 0 0 6px rgba(239,68,68,.10)}
-    .dot.unk{background:var(--unk);box-shadow:0 0 0 6px rgba(245,158,11,.10)}
-    .bigStatus b{font-size:18px}
-    .sub{margin-top:10px;color:var(--muted);font-size:13px;line-height:1.5}
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--line);
-      padding:8px 10px;border-radius:12px;color:var(--muted);
-      overflow:auto;
-    }
-    .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
-    .row:last-child{border-bottom:0}
-    .badge{
-      font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.03);color:var(--muted);white-space:nowrap
-    }
-    footer{margin-top:14px;color:var(--muted);font-size:12px}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DownDetector Detector</title>
+
+<style>
+:root{
+  --bg:#070b12;
+  --card:#0d1422;
+  --line:#1e2a3d;
+  --text:#e5e7eb;
+  --muted:#93a4b8;
+  --up:#22c55e;
+  --down:#ef4444;
+  --unk:#f59e0b;
+}
+body{
+  margin:0;
+  font-family:system-ui,Segoe UI,Roboto;
+  background:var(--bg);
+  color:var(--text);
+}
+.wrap{
+  max-width:800px;
+  margin:auto;
+  padding:40px 20px;
+}
+.card{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:18px;
+  padding:20px;
+}
+h1{margin:0 0 10px}
+.big{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  border-radius:14px;
+  background:#0003;
+  border:1px solid #fff1;
+  margin:20px 0;
+}
+.dot{
+  width:16px;
+  height:16px;
+  border-radius:999px;
+}
+.dot.up{background:var(--up)}
+.dot.down{background:var(--down)}
+.dot.unk{background:var(--unk)}
+button{
+  background:#1a2235;
+  color:white;
+  border:1px solid #2a3856;
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+}
+button:hover{background:#223055}
+.log{
+  font-family:monospace;
+  font-size:12px;
+  background:#0005;
+  padding:10px;
+  border-radius:10px;
+  height:120px;
+  overflow:auto;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">DD</div>
-        <h1>DownDetector Detector (for the detector’s detector’s detector…)</h1>
-      </div>
-      <span class="badge" id="refreshLabel">Auto-refresh: 30s</span>
-    </header>
+<div class="wrap">
+<div class="card">
 
-    <div class="card">
-      <div class="top">
-        <div class="title">
-          <h2>Is the recursion website down?</h2>
-          <p>
-            Target:
-            <a id="targetLink" href="#" target="_blank" rel="noreferrer"></a>
-            <br>
-            This checks via public status endpoints (because browsers can’t reliably “ping” arbitrary sites due to CORS).
-          </p>
-        </div>
-        <div class="controls">
-          <button class="btn" id="checkBtn">Check now</button>
-          <button class="btn secondary" id="copyBtn">Copy URL</button>
-          <button class="btn secondary" id="toggleAutoBtn">Pause auto</button>
-        </div>
-      </div>
+<h1>Is the recursion website down?</h1>
+<p>
+Checking:
+https://downdetectorsdowndetectorsdowndetectorsdowndetector.com
+</p>
 
-      <div class="grid">
-        <div class="panel">
-          <div class="bigStatus" id="bigStatus">
-            <span class="dot unk" id="dot"></span>
-            <div>
-              <b id="statusText">UNKNOWN</b>
-              <div class="sub" id="statusSub">Click “Check now” to run the probes.</div>
-            </div>
-          </div>
-          <div class="sub" style="margin-top:10px">
-            Last check: <span id="lastCheck">—</span><br/>
-            Verdict rule: <span class="badge">UP if ≥1 probe says up</span>
-          </div>
-        </div>
+<div class="big">
+<span class="dot unk" id="dot"></span>
+<div>
+<b id="status">UNKNOWN</b>
+<div id="sub">Waiting for check…</div>
+</div>
+</div>
 
-        <div class="panel">
-          <div class="row">
-            <div>Probe A (is-up.org)</div>
-            <div class="badge" id="probeA">pending</div>
-          </div>
-          <div class="row">
-            <div>Probe B (allorigins → fetch)</div>
-            <div class="badge" id="probeB">pending</div>
-          </div>
-          <div class="row">
-            <div>Probe C (dns.google resolve)</div>
-            <div class="badge" id="probeC">pending</div>
-          </div>
+<button onclick="run()">Check now</button>
 
-          <div class="sub" style="margin-top:10px">
-            Notes:
-            <ul style="margin:8px 0 0 18px;padding:0;color:var(--muted)">
-              <li>DNS resolve doesn’t prove the site is up — just that the domain exists.</li>
-              <li>Some probes may fail due to rate limits / blocks.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+<p>Last check: <span id="last">—</span></p>
 
-      <div class="panel" style="margin-top:12px">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
-          <div style="color:var(--muted);font-size:13px">Raw log</div>
-          <span class="badge" id="verdictBadge">verdict: unknown</span>
-        </div>
-        <pre class="mono" id="log">Ready.</pre>
-      </div>
-    </div>
-  </div>
+<div class="log" id="log">Ready.</div>
+
+</div>
+</div>
 
 <script>
-  const TARGET = "downdetectorsdowndetectorsdowndetectorsdowndetector.com";
-  const TARGET_URL = "https://" + TARGET + "/";
 
-  const $ = (q)=>document.querySelector(q);
-  const logEl = $("#log");
+const CHECK_ENDPOINT =
+"https://downdetectorsdowndetectorsdowndetectorsdowndetectorsdowndetecto.bezau2.workers.dev/";
 
-  $("#targetLink").textContent = TARGET_URL;
-  $("#targetLink").href = TARGET_URL;
+const dot = document.getElementById("dot");
+const status = document.getElementById("status");
+const sub = document.getElementById("sub");
+const log = document.getElementById("log");
+const last = document.getElementById("last");
 
-  const state = {
-    auto: true,
-    timer: null
-  };
+function write(msg){
+  log.textContent = "["+new Date().toLocaleTimeString()+"] "+msg+"\n"+log.textContent;
+}
 
-  function ts(){
-    const d = new Date();
-    const p = (n)=>String(n).padStart(2,"0");
-    return `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
-  }
+function setState(s,text){
+  dot.className = "dot "+s;
+  status.textContent = s.toUpperCase();
+  sub.textContent = text;
+}
 
-  function log(line){
-    logEl.textContent = `[${ts()}] ${line}\n` + logEl.textContent;
-  }
+async function run(){
+  last.textContent = new Date().toLocaleString();
+  setState("unk","Checking via Worker…");
+  write("Checking…");
 
-  function setBadge(el, text){
-    el.textContent = text;
-  }
-
-  function setVerdict(verdict, sub){
-    const dot = $("#dot");
-    const statusText = $("#statusText");
-    const statusSub = $("#statusSub");
-    const verdictBadge = $("#verdictBadge");
-
-    dot.className = "dot " + (verdict === "up" ? "up" : verdict === "down" ? "down" : "unk");
-    statusText.textContent = verdict.toUpperCase();
-    statusSub.textContent = sub;
-
-    verdictBadge.textContent = `verdict: ${verdict}`;
-  }
-
-  async function probeIsUp(){
-    // is-up.org returns: {"domain":"example.com","port":443,"status_code":200,"response_ip":"...","response_code":200,"is_up":true}
-    // Sometimes CORS can be picky; if it fails, we treat as unknown.
-    const url = `https://is-up.org/${encodeURIComponent(TARGET)}.json`;
-    const r = await fetch(url, { cache: "no-store" });
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+  try{
+    const r = await fetch(CHECK_ENDPOINT,{cache:"no-store"});
     const j = await r.json();
-    return { ok: !!j.is_up, detail: `is_up=${j.is_up}` };
-  }
 
-  async function probeAllOrigins(){
-    // Use AllOrigins to fetch the target HTML via their proxy (CORS-friendly)
-    // If AllOrigins can fetch it and returns contents, likely UP.
-    const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(TARGET_URL)}`;
-    const r = await fetch(url, { cache: "no-store" });
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    const txt = await r.text();
-    // Heuristic: got some non-trivial content
-    const ok = txt && txt.length > 200;
-    return { ok, detail: `bytes=${txt.length}` };
-  }
+    write(JSON.stringify(j));
 
-  async function probeDNS(){
-    // DNS over HTTPS via Google Public DNS
-    // Resolve A record: success means domain exists
-    const url = `https://dns.google/resolve?name=${encodeURIComponent(TARGET)}&type=A`;
-    const r = await fetch(url, { cache: "no-store" });
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    const j = await r.json();
-    const hasAnswer = Array.isArray(j.Answer) && j.Answer.length > 0;
-    return { ok: hasAnswer, detail: hasAnswer ? `A=${j.Answer[0].data}` : "no A record" };
-  }
-
-  async function runChecks(){
-    $("#lastCheck").textContent = new Date().toLocaleString();
-    setVerdict("unknown", "Running probes…");
-
-    setBadge($("#probeA"), "checking…");
-    setBadge($("#probeB"), "checking…");
-    setBadge($("#probeC"), "checking…");
-
-    let upVotes = 0;
-    let downVotes = 0;
-    let unknownVotes = 0;
-
-    const results = { A:null, B:null, C:null };
-
-    const jobs = [
-      (async()=> {
-        try{
-          const res = await probeIsUp();
-          results.A = res;
-          setBadge($("#probeA"), res.ok ? "up" : "down");
-          log(`Probe A: ${res.ok ? "UP" : "DOWN"} (${res.detail})`);
-          res.ok ? upVotes++ : downVotes++;
-        }catch(e){
-          results.A = { ok:null, detail:String(e) };
-          setBadge($("#probeA"), "unknown");
-          log(`Probe A: UNKNOWN (${e})`);
-          unknownVotes++;
-        }
-      })(),
-      (async()=> {
-        try{
-          const res = await probeAllOrigins();
-          results.B = res;
-          setBadge($("#probeB"), res.ok ? "up" : "down");
-          log(`Probe B: ${res.ok ? "UP" : "DOWN"} (${res.detail})`);
-          res.ok ? upVotes++ : downVotes++;
-        }catch(e){
-          results.B = { ok:null, detail:String(e) };
-          setBadge($("#probeB"), "unknown");
-          log(`Probe B: UNKNOWN (${e})`);
-          unknownVotes++;
-        }
-      })(),
-      (async()=> {
-        try{
-          const res = await probeDNS();
-          results.C = res;
-          // DNS "ok" doesn't mean site is up — mark it as "resolved" not up/down
-          setBadge($("#probeC"), res.ok ? "resolved" : "no record");
-          log(`Probe C: ${res.ok ? "RESOLVED" : "NO RECORD"} (${res.detail})`);
-          // don't vote this as UP/DOWN, just info
-        }catch(e){
-          results.C = { ok:null, detail:String(e) };
-          setBadge($("#probeC"), "unknown");
-          log(`Probe C: UNKNOWN (${e})`);
-        }
-      })()
-    ];
-
-    await Promise.allSettled(jobs);
-
-    // Verdict logic: if any probe says UP => UP.
-    // If both A and B explicitly say DOWN => DOWN.
-    // Else UNKNOWN.
-    if (upVotes >= 1){
-      setVerdict("up", "At least one probe could reach the site.");
-    } else if (downVotes >= 2){
-      setVerdict("down", "Multiple probes failed to reach the site.");
-    } else {
-      setVerdict("unknown", "Probes were inconclusive (network, rate limit, or blocks).");
+    if(j.ok){
+      setState("up","HTTP "+j.status+" in "+j.latency+"ms");
+    }else{
+      setState("down","HTTP "+j.status+" ("+j.latency+"ms)");
     }
-  }
 
-  // Buttons
-  $("#checkBtn").addEventListener("click", runChecks);
-
-  $("#copyBtn").addEventListener("click", async ()=>{
-    try{
-      await navigator.clipboard.writeText(TARGET_URL);
-      log("Copied target URL to clipboard.");
-    }catch{
-      log("Clipboard blocked by browser permissions.");
-      alert(TARGET_URL);
+    if(j.error){
+      write("Error: "+j.error);
     }
-  });
 
-  $("#toggleAutoBtn").addEventListener("click", ()=>{
-    state.auto = !state.auto;
-    $("#toggleAutoBtn").textContent = state.auto ? "Pause auto" : "Resume auto";
-    if(state.auto){
-      startAuto();
-      log("Auto-refresh resumed.");
-    } else {
-      stopAuto();
-      log("Auto-refresh paused.");
-    }
-  });
-
-  function startAuto(){
-    stopAuto();
-    state.timer = setInterval(runChecks, 30000);
+  }catch(e){
+    write("Worker unreachable: "+e);
+    setState("unk","Worker unreachable");
   }
-  function stopAuto(){
-    if(state.timer) clearInterval(state.timer);
-    state.timer = null;
-  }
+}
 
-  // Start
-  startAuto();
-  runChecks();
+run();
+setInterval(run,30000);
+
 </script>
 </body>
 </html>
